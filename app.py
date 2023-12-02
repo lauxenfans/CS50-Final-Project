@@ -1,15 +1,35 @@
 import cv2
 import requests
+import numpy as np
+import json
 
 # Function to perform reverse image search using Google Custom Search API
 def reverse_image_search(image_path, api_key, custom_search_engine_id):
-    # Read the image using OpenCV
-    img = cv2.imread(image_path)
+    # Read the image using OpenCV 
+    """
+    f = open('apple.png', "rb")
+    rawImage = f.read()
+    f.close()
 
+    # Convert rawImage to Mat 
+    pilImage = Image.open(StringIO(rawImage));
+    npImage = np.array(pilImage)
+    matImage = cv.fromarray(npImage)
+    """
+
+    with open('apple.png', 'rb') as infile:
+        buf = infile.read()
+    #x = np.fromstring(buf, dtype = 'uint8')
+
+    # Decode array into image 
+    #img = cv2.imdecode(x, cs2.IMREAD_UNCHANGED)
+    
+    
     # Convert the image to base64 encoding
-    _, img_encoded = cv2.imencode('.png', img)
-    img_base64 = img_encoded.tobytes()
+    # _, img_encoded = cv2.imencode('.png', img)
+    # img_base64 = img_encoded.tobytes()
 
+     
     # Make a POST request to the Google Custom Search API
     url = f'https://www.googleapis.com/customsearch/v1?key={api_key}&cx={custom_search_engine_id}&searchType=image'
     headers = {'Content-Type': 'application/json'}
@@ -17,13 +37,13 @@ def reverse_image_search(image_path, api_key, custom_search_engine_id):
         "requests": [
             {
                 "image": {
-                    "content": img_base64.decode('utf-8')
+                    "content": buf
                 }
             }
         ]
     }
 
-    response = requests.post(url, headers=headers, json=data)
+    response = requests.get(url, headers=headers, json=json.dumps(data))
     results = response.json()
 
     return results

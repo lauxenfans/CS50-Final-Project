@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!-- 4 different HTML pages, 1 Javascript integration, 10 different HTML tags, 1 or more Bootstrap features, 5 different CSS selectors and 5 different properties-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('form').addEventListener('submit', function(event) {
+                    alert('Thank you for adding your email address to the mailing list! Stay tuned for more coming up.');
+                    event.preventDefault();
+                });
+            });
+
+        </script>
+        <title>My Webpage</title>
+
+    </head>
+    <body>
+        <div class = "nameplate">
+            <h1>Louis Auxenfans</h1>
+        </div>
+
+        <div class = "menus">
+            <a href="index.html" class = "button_style">Homepage</a>
+            <a href="biography.html" class = "button_style">Biography</a>
+            <a href="interests.html" class = "button_style">Interests</a>
+            <a href="family.html" class = "button_style">My Family</a>
+        </div>
+
+        <div>
+        <p> Hello! Welcome to the homepage of Louis Auxenfans. </p>
+        <p> I am a first-year at Harvard (class of 2027)
+            originally from Chicago. Illinois, and I am proud brother and musician. </p>
+        <p> As a clarinetist and pianist, I take deep pride in my musical background, but I also have many interests</p>
+        </div>
+
+        <img src = "Auxenfans_Louis.jpeg" alt = "Louis headshot" style = "width:20%">
+
+        <p> Subscribe now to recieve occasional life updates about me ;) Only gmail email accounts accepted.</p>
+            <form>
+                <!-- Ensure valid email for mailing list. -->
+                <input autocomplete="off" autofocus name="email" placeholder="Email" type = "email" pattern = ".+@gmail.com">
+                <button class = "button_style">Register</button>
+            </form>
+    </body>
+</html>

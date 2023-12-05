@@ -1,24 +1,34 @@
-"""
 
-from serpapi import *
+from serpapi import GoogleSearch
+import requests 
+from PIL import Image 
+from io import BytesIO
+
+## Need to be able to customize JPG file url 
 
 params = {
   "engine": "google_reverse_image",
-  "image_url": "https://purepng.com/photo/5928/apple",
+  "image_url": "https://purepng.com/public/uploads/large/purepng.com-applefoodsweettastyhealthyfruitapple-9815246780899e3jo.png",
   "api_key": "b6da2d59ed058bbd9aed17229429a0e9a9fd3287ace73d54373536b5d8f4de61"
 }
 
 search = GoogleSearch(params)
 results = search.get_dict()
+#print(results)
 inline_images = results["inline_images"]
-"""
+print(inline_images[0])
 
-import requests 
-PARAMS = {'api_key':'b6da2d59ed058bbd9aed17229429a0e9a9fd3287ace73d54373536b5d8f4de61'}
-r = requests.get(url = 'https://serpapi.com/search.json?engine=google_reverse_image&image_url=https://i.imgur.com/5bGzZi7.jpg', params = PARAMS)
+###   Display JPG file  ###
+# Will grab url from thumbnail
+for image_info in inline_images:
+    image_url = image_info.get('original')
+    if image_url:
+        response = requests.get(image_url)
+        img = Image.open(BytesIO(response.content))
+    
+    #Display the image 
+        img.show()
 
-data = r.json()
-print(data)
 
 
-## Customize image jpg file 
+

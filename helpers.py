@@ -6,8 +6,12 @@ import subprocess
 import urllib
 import uuid
 
+#sava imports
 from flask import redirect, render_template, session
 from functools import wraps
+from tkinter.colorchooser import askcolor
+import tkinter as tk
+from tkinter import ttk
 
 
 def apology(message, code=400):
@@ -85,6 +89,22 @@ def lookup(symbol):
         return None
 
 
-def usd(value):
-    """Format value as USD."""
-    return f"${value:,.2f}"
+### Functions for whiteboard features 
+def paint(event, shade):
+    x1, y1 = (event.x - 2), (event.y - 2)
+    x2, y2 = (event.x + 2), (event.y + 2)
+    canvas.create_line(x1, y1, x2, y2, width=5, fill=shade, splinesteps = 256)
+
+def color_picker():
+   color = askcolor()
+   global shade 
+   shade = color[1]
+   #return(color[1])
+
+def change(shade):
+    global current
+    current = shade
+
+def clear(canvas):
+    '''Clear all drawn objects from the screen'''
+    canvas.delete('all')

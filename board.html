@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Whiteboard</title>
+  <style>
+    #whiteboard {
+      width: 800px;
+      height: 600px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="whiteboard"></canvas>
+
+  <script>
+    const canvas = document.getElementById('whiteboard');
+    const ctx = canvas.getContext('2d');
+
+    let isDrawing = false;
+    let lastX, lastY;
+
+    canvas.addEventListener('mousedown', (e) => {
+      isDrawing = true;
+      lastX = e.offsetX;
+      lastY = e.offsetY;
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (isDrawing) {
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+
+        lastX = e.offsetX;
+        lastY = e.offsetY;
+      }
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      isDrawing = false;
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      isDrawing = false;
+    });
+  </script>
+</body>
+</html>

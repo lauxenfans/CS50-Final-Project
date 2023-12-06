@@ -1,15 +1,15 @@
 import os
 import sqlite3
+import tkinter as tk
 
 from cs50 import SQL
-
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+from helpers import apology, paint, color_picker, change, clear
 
 #sava imports
 from tkinter.colorchooser import askcolor
-import tkinter as tk
 from tkinter import ttk
 #from datetime import datetime
 #from pytz import timezone
@@ -19,6 +19,8 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+db = SQL("sqlite:///whiteboard.db")
 
 @app.after_request
 def after_request(response):
@@ -70,11 +72,8 @@ def whiteboard():
     clear_b = tk.Button(text='Clear', fg='black', bg='#c4c4c4', relief='flat', command=lambda: clear(canvas))
     clear_b.pack(side=tk.RIGHT, fill=tk.BOTH, padx=5, pady=5)
 
-
-
     root.mainloop()
     return render_template("whiteboard.html")
-
 
 @app.route('/history')
 def history():
@@ -181,3 +180,13 @@ def login():
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    """Log user out"""
+
+    # Forget any user_id
+    session.clear()
+
+    # Redirect user to login form
+    return redirect("/")

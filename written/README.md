@@ -41,6 +41,14 @@ Compilation
 
     Step 6: Click on Whiteboard on the upper left to open up a whiteboard window where you can draw 
 
-    Step 7: In the whiteboard window, there are multiple buttons which provide different actionality to interact with teh whiteboard 
+    Step 7: In the whiteboard window, there are multiple buttons at the top bar of the window  which provide different actionality to interact with the whiteboard as you drag your brush (pen) across the screen. From the left hand side to the right, they include:
+
+    - Color: Change the color of your brush across the whole pallate spectrum
+
+    - Erase: When selected, a box on the far right will appear that says "Erase Active" in red text 
+
+    - Brush Size: The slider just to the right of this box will adjust the size of the brush with values close to 0 being a very thin brush and large values creating a very fat brush 
+
+    - Text box: This empty box allows you to type text inside which you can then 
 
     

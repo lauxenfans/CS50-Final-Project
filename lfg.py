@@ -52,37 +52,32 @@ class Whiteboard:
         try:
             canvas.focus_set()
             time.sleep(1)
+            
             # Ask the user for a filename and location
             file_name_png = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG files", "*.png")])
             
             # Check if a file name was provided
             if file_name_png:
-                # Get the user's home directory
-                home_dir = os.path.expanduser("~")
-                # Save the canvas image in the user's home directory
-                file_path = os.path.join(home_dir, file_name_png)
+                # Get the bounding box of the canvas
+                x, y, width, height = canvas.winfo_rootx(), canvas.winfo_rooty(), canvas.winfo_width(), canvas.winfo_height()
                 
                 # Create an empty image with the same size as the canvas
-                canvas_image = Image.new("RGB", (canvas.winfo_width(), canvas.winfo_height()), color="white")
+                canvas_image = Image.new("RGB", (width, height), color="white")
 
                 # Draw the canvas content onto the image
-                x, y, width, height = canvas.winfo_rootx(), canvas.winfo_rooty(), canvas.winfo_width(), canvas.winfo_height()
                 canvas_image.paste(ImageGrab.grab(bbox=(x, y, x + width, y + height)))
 
-                # For the desktop
-                desktop_path = os.path.join(os.path.expanduser('~'), 'Desktop')
-                file_path = os.path.join(desktop_path, file_name_png)
-
-                # Save the canvas image as a PNG file on the desktop
-                canvas_image.save(file_path, format="PNG")
-
+                # Save the canvas image with the provided file name
+                canvas_image.save(file_name_png, format="PNG")
 
                 # Show success message
-                messagebox.showinfo("Success", f"Whiteboard saved as {file_path}")
+                messagebox.showinfo("Success", f"Whiteboard saved as {file_name_png}")
+
         except Exception as e:
             # Show error message
             messagebox.showerror("Error", f"Failed to save whiteboard: {e}")
 
+   
     # use Antialiasing to blend adjacent pixels to make lines look smoother when the mouse is moved quickly
     # according to the tkinter documentation: 
     # the value of 'splinesteps' indicates the number of control points to use for spline interpolation, which determines the smoothness of the line.

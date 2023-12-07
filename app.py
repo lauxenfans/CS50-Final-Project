@@ -117,6 +117,7 @@ def whiteboard():
     # save button
     save_button = tk.Button(root, text="Save", command=Whiteboard.save_canvas_as_image)
     save_button.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
+    #save_canvas_as_image(canvas)
 
     # Create a label to display the eraser message
     eraser_message_label = tk.Label(root, text="", fg="red")

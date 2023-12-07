@@ -1,1 +1,103 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriteRight - Canvas</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Helvetica', sans-serif;
+        }
+        canvas {
+            background-color: white;
+            cursor: crosshair;
+            border: 1px solid #ccc;
+        }
+        .button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #eraserMessage {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="frame">
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <div class="button" onclick="colorPicker()">Color</div>
+        <div class="button" onclick="toggleEraser()">Eraser</div>
+        <label for="brushSize">Brush Size: </label>
+        <input type="range" id="brushSize" min="1" max="30" value="5" oninput="updateBrushSize()">
+        <input type="text" id="textEntry" placeholder="Text" style="width: 150px;">
+        <label for="fontSize">Font Size: </label>
+        <input type="range" id="fontSize" min="8" max="100" value="12">
+        <div class="button" onclick="generateRandomDrawing()">Random</div>
+        <div class="button" onclick="clearCanvas()">Clear</div>
+        <div class="button" onclick="saveCanvasAsImage()">Save</div>
+        <label id="eraserMessage"></label>
+    </div>
+
+    <script>
+        // Get canvas and 2d context
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+
+        // Variables
+        let brushSize = 5;
+        let eraserActive = false;
+        let shade = 'black';
+        let currentColor = 'black';
+
+        // Event listeners
+        canvas.addEventListener('mousemove', paint);
+        canvas.addEventListener('dblclick', drawText);
+
+        // Functions
+        function generateRandomDrawing() {
+            // Your random drawing logic here
+        }
+
+        function saveCanvasAsImage() {
+            // Your save canvas as image logic here
+        }
+
+        function paint(event) {
+            // Your paint logic here
+        }
+
+        function drawText(event) {
+            // Your draw text logic here
+        }
+
+        function toggleEraser() {
+            eraserActive = !eraserActive;
+            updateEraserMessage();
+        }
+
+        function colorPicker() {
+            // Your color picker logic here
+        }
+
+        function updateBrushSize() {
+            brushSize = parseInt(document.getElementById('brushSize').value);
+        }
+
+        function clearCanvas() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function updateEraserMessage() {
+            const eraserMessage = document.getElementById('eraserMessage');
+            eraserMessage.textContent = eraserActive ? 'Eraser Active' : '';
+        }
+    </script>
+</body>
+</html>

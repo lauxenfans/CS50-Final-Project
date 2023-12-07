@@ -6,7 +6,7 @@ from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import apology, paint, color_picker, change, clear, Whiteboard
+from helpers import apology, paint, color_picker, change, clear
 
 #sava imports
 from tkinter.colorchooser import askcolor
@@ -42,88 +42,41 @@ def index():
 if __name__ == '__main__':
     app.run(debug=True)
 
-#whiteboard code
 @app.route('/whiteboard')
 def whiteboard():
-    # some things that'll be helpful
-    brush_size = 5
-    eraser_active = False
-    shade = 'black'
-    current_color = 'black'
-
-    # make and the window, and make it resizable on both axes
+    # make and style the window
     root = tk.Tk()
     root.title('WriteRight - Canvas')
     root.resizable(True, True)
-    root.config(background='black')
 
     # make a frame that holds the canvas (and sizegrip!)
     frame = tk.Frame(root)
     frame.pack(fill='both', side=tk.BOTTOM, expand=True)
 
-    # make the canvas widget
+    # make the canvas
     canvas = tk.Canvas(frame, bg='white')
     canvas.pack(fill='both', expand=True)
-
-    # define what happens when user clicks and drags the left mouse button <B1-Motion>
-    # lambda is a keyword for a "throwaway" function that python uses to access a small "anonymous" function
-    # got help in office hours for how to use lambda (and also when its no necessary)
-    canvas.bind("<B1-Motion>", lambda event: Whiteboard.paint(event, shade))
-    canvas.bind("<Double-Button-1>", lambda event: Whiteboard.draw_text(event))
 
     # make the sizegrip element
     sizegrip = ttk.Sizegrip(frame)
     sizegrip.pack(side='bottom', anchor='se')
+    #root.geometry("500x500")
 
-    # make some buttons!
+    root.config(background='black')
 
-    #custom color button
-    custom_b = tk.Button(root, text="Color", command=Whiteboard.color_picker)
-    custom_b.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
+    shade = 'black'
+    current_color = 'black'
+    # define what happens when user clicks and drags the left mouse button <B1-Motion>
+    # lambda is a keyword for a "throwaway" function that python uses to access a small "anonymous" function
+    canvas.bind("<B1-Motion>", lambda event: paint(event, shade, canvas))
 
-    # eraser button
-    eraser_button = tk.Button(root, text="Eraser", command=Whiteboard.toggle_eraser)
-    eraser_button.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
+    custom = tk.Button(root, text ="Custom Color", command = color_picker)
+    custom.pack(side=tk.LEFT, fill=tk.BOTH, padx=5, pady=5)
 
-    # a label that shows the brush scale slider
-    brush_label = tk.Label(root, text="Brush Size:")
-    brush_label.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
-
-    # the actual brush size adjuster
-    brush_size_b = tk.Scale(root, from_=1, to=30, orient=tk.HORIZONTAL, length=100, command=Whiteboard.update_brush_size)
-    brush_size_b.set(brush_size)
-    brush_size_b.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
-
-    # text entry 
-    text_entry = tk.Entry(root, width=30)
-    text_entry.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
-
-    # font size variable to be adjusted (default 12)
-    font_size = tk.IntVar()
-    font_size.set(12)
-
-    # font size slider
-    font_size_slider = tk.Scale(root, from_=8, to=100, orient=tk.HORIZONTAL, variable=font_size)
-    font_size_slider.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
-
-    # random drawing button
-    random_drawing_b = tk.Button(root, text="Random", command=lambda: Whiteboard.generate_random_drawing(canvas))
-    random_drawing_b.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
-
-    # clear button
-    clear_b = tk.Button(root, text='Clear', command=lambda: Whiteboard.clear(canvas))
-    clear_b.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
-
-    # save button
-    save_button = tk.Button(root, text="Save", command=Whiteboard.save_canvas_as_image)
-    save_button.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH)
-
-    # Create a label to display the eraser message
-    eraser_message_label = tk.Label(root, text="", fg="red")
-    eraser_message_label.pack(side=tk.LEFT, padx=5, pady=5)
+    clear_b = tk.Button(text='Clear', fg='black', bg='#c4c4c4', relief='flat', command=lambda: clear(canvas))
+    clear_b.pack(side=tk.RIGHT, fill=tk.BOTH, padx=5, pady=5)
 
     root.mainloop()
-    
     return render_template("whiteboard.html")
 
 @app.route('/history')

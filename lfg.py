@@ -67,7 +67,11 @@ class Whiteboard:
                 pixel_grab_image = ImageGrab.grab(bbox=(x, y, x + width, y + height))
 
                 # Save the canvas image as a PNG file
-                canvas_image.save(file_name_png, format="PNG")
+                canvas_image.save('/Desktop/'+file_name_png, format="PNG")
+                # for any computer, have it back up one folder into CS-50
+                # !!! have somewhere saved a base directory for the project:
+                    # current directory for Desktop
+                    # canvas_image.save('/Desktop/'+file_name_png, format="PNG")
 
                 # Save pixel grab as a separate PNG file
                 pixel_grab_image.save(f"{file_name_png.replace('.png', '_pixel_grab.png')}", format="PNG")

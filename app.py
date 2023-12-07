@@ -1,21 +1,16 @@
 import os
 import sqlite3
 import tkinter as tk
+import random
+import time
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import apology, paint, color_picker, change, clear, Whiteboard
-
-#sava imports
+from helpers import apology, Whiteboard
 from tkinter.colorchooser import askcolor
-from tkinter import ttk
-import time
-from tkinter import filedialog
-from tkinter import filedialog, Tk, Button, Canvas
-
-import random
+from tkinter import ttk, filedialog, Tk, Button, Canvas
 from PIL import ImageGrab, Image, ImageDraw
 
 app = Flask(__name__)
@@ -37,7 +32,7 @@ def after_request(response):
 @app.route('/')
 def index():
     return render_template(
-        "layout.html")
+        "index.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -123,8 +118,8 @@ def whiteboard():
     
     return render_template("whiteboard.html")
 
-@app.route('/history')
-def history():
+@app.route('/revImageSearch')
+def revImageSearch():
     return render_template(
         "layout.html")
 
@@ -184,7 +179,7 @@ def register():
             generate_password_hash(password),
         )
 
-        return redirect("/")
+        return redirect("/login")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:

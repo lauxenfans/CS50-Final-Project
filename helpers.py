@@ -59,33 +59,6 @@ def login_required(f):
 
     return decorated_function
 
-
-### Functions for whiteboard features 
-def paint(event, shade, canvas):
-    x1, y1 = (event.x - 2), (event.y - 2)
-    x2, y2 = (event.x + 2), (event.y + 2)
-    canvas.create_line(x1, y1, x2, y2, width=5, fill=shade, splinesteps = 256)
-
-def color_picker():
-   color = askcolor()
-   global shade 
-   shade = color[1]
-   #return(color[1])
-
-def change(shade):
-    global current
-    current = shade
-
-def clear(canvas):
-    '''Clear all drawn objects from the screen'''
-    canvas.delete('all')
-
-# some things that'll be helpful
-    brush_size = 5
-    eraser_active = False
-    shade = 'black'
-    current_color = 'black'
-
 #whiteboard class
 class Whiteboard:
     def __init__(self, canvas):
@@ -215,12 +188,14 @@ class Whiteboard:
     # thank you tkinter documentation 
     def color_picker(self):
         # global shade, current_color
-        color = askcolor()
+        color = tk.colorchooser.askcolor()
         # color will give both the hex and rgb of the chosen color, so I need to undex to 
         # color[1] for my draw function to use it
         #shade = color[1]
         #self.current_color = shade
-        self.current_color = color[1]
+        if color[1] is not None:
+            shade = color[1]
+            self.current_color = shade
 
     def change(self, shade):
         # global current

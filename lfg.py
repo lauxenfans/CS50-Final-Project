@@ -5,7 +5,7 @@ import time
 from tkinter import filedialog, messagebox
 from tkinter import filedialog, Tk, Button, Canvas
 import random
-from PIL import ImageGrab, Image, ImageDraw, ImageTk
+from PIL import ImageGrab, Image, ImageDraw
 import pygetwindow as gw
 import tkcap
 import os
@@ -53,27 +53,21 @@ class Whiteboard:
 
 
     def save_canvas_as_image():
+        screenshot_path = "/Users/savat1/Mirror/Mirror/GitHub/CS50-Final-Project/screenshot.jpg"
+
         try:
-            canvas.focus_set()
-
-            # Get the bounding box of the canvas
-            x, y, width, height = canvas.winfo_rootx(), canvas.winfo_rooty(), canvas.winfo_width(), canvas.winfo_height()
-
-            # Create an empty image with the same size as the canvas
-            canvas_image = Image.new("RGB", (width, height), color="white")
-
-            # Draw the canvas content onto the image
-            canvas_image.paste(ImageGrab.grab(bbox=(x, y, x + width, y + height)))
-
-            # Save the canvas image with the provided file path
-            canvas_image.save(screenshot_path, format="PNG")
-
-            # Show success message
-            messagebox.showinfo("Success", f"Whiteboard saved as {screenshot_path}")
-
+            cap = tkcap.CAP(root)
+            cap.capture(screenshot_path)
+            print("Screenshot saved at:", screenshot_path)
         except Exception as e:
-            # Show error message
-            messagebox.showerror("Error", f"Failed to save whiteboard: {e}")
+            print("Error capturing screenshot:", e)
+
+        try:
+            # Optionally, add more details about the error, if any
+            with open(screenshot_path, 'wb') as f:
+                pass
+        except Exception as e:
+            print("Error saving file:", e)
 
 
     

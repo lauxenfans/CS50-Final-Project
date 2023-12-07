@@ -35,8 +35,20 @@ Compilation
     Step 3: Type flask run in your terminal so you can load the website and have fun playing around with the whiteboard!
 
 
+    Step 4: To use the website, first click on the Register button on the top right to create an account. Enter a username and create a password and re-confirm that password.  
 
+    Step 5: Log into the website using your newly created username and password. 
 
-Make a whiteboard for drawing and then reverse image search on google 
+    Step 6: Click on Whiteboard on the upper left to open up a whiteboard window where you can draw 
 
-need to run by using "python -m flask run" as opposed to using flask run
+    Step 7: In the whiteboard window, there are multiple buttons at the top bar of the window  which provide different actionality to interact with the whiteboard as you drag your brush (pen) across the screen. From the left hand side to the right, they include:
+
+    - Color: Change the color of your brush across the whole pallate spectrum
+
+    - Erase: When selected, a box on the far right will appear that says "Erase Active" in red text 
+
+    - Brush Size: The slider just to the right of this box will adjust the size of the brush with values close to 0 being a very thin brush and large values creating a very fat brush 
+
+    - Text box: This empty box allows you to type text inside which you can then 
+
+    

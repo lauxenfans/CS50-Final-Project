@@ -150,8 +150,8 @@ class Whiteboard:
         
         # if eraser mode is not active (a.k.a. I want to draw)
         else:
-            #determine color of ink, can be adjusted later
-            self.current_color = shade
+            #sets the color of ink to the current color.
+            shade = self.current_color
             x1 = (event.x - self.brush_size)
             y1 = (event.y - self.brush_size)
             x2 = (event.x + self.brush_size)
@@ -188,7 +188,7 @@ class Whiteboard:
     # thank you tkinter documentation 
     def color_picker(self):
         # global shade, current_color
-        color = tk.colorchooser.askcolor()
+        color = askcolor()
         # color will give both the hex and rgb of the chosen color, so I need to undex to 
         # color[1] for my draw function to use it
         #shade = color[1]

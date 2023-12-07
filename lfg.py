@@ -10,6 +10,7 @@ from PIL import ImageGrab, Image, ImageDraw
 import tkcap
 import os
 import io
+import pyautogui
 
 # some things that'll be helpful
 brush_size = 5

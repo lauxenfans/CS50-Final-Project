@@ -11,9 +11,14 @@ Compilation
     Step 1: Download all our files from the zip folder to your VSCode 
     
     Step 2: Get the necessary libraries and programs downloaded and set up onto your computer.
+
         First, follow the CS50 video 'Flying the nest: https://youtu.be/vQd_fxzCIs0?si=J0lTphzZIoClXQcB' which will get your computer set up with Python and Flask. 
    
-        Second, download the relevant Python libraries that we used in our project to make the website  
+        Second, download the pip module in Python (if your computer doesn't have that already), so you can install the relevant python libraries.
+        
+        download the relevant Python libraries that we used in our project to make the website. You can install this by running pip install [library_name] in your terminal. 
+
+        If that doesn't install the library, try running pip3 install [libray_name] or python -m pip install [library_name]
         Libraries Used:
         - Tkinter 
         - PIL
@@ -27,7 +32,7 @@ Compilation
         - urllib3 
         - uuid 
 
-Necessary Compilations
+    Step 3: Type flask run in your terminal so you can load the website and have fun playing around with the whiteboard!
 
 
 

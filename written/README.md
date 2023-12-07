@@ -39,6 +39,8 @@ Compilation
 
     Step 5: Log into the website using your newly created username and password. 
 
-Make a whiteboard for drawing and then reverse image search on google 
+    Step 6: Click on Whiteboard on the upper left to open up a whiteboard window where you can draw 
 
-need to run by using "python -m flask run" as opposed to using flask run
+    Step 7: In the whiteboard window, there are multiple buttons which provide different actionality to interact with teh whiteboard 
+
+    

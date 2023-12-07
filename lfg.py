@@ -6,6 +6,7 @@ from tkinter import filedialog, messagebox
 from tkinter import filedialog, Tk, Button, Canvas
 import random
 from PIL import ImageGrab, Image, ImageDraw
+import os
 
 # some things that'll be helpful
 brush_size = 5
@@ -51,11 +52,16 @@ class Whiteboard:
         try:
             canvas.focus_set()
             time.sleep(1)
-            # Ask the user for a filename
+            # Ask the user for a filename and location
             file_name_png = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG files", "*.png")])
-
-            # Save the canvas content and pixel grab as a PNG file
+            
+            # Check if a file name was provided
             if file_name_png:
+                # Get the user's home directory
+                home_dir = os.path.expanduser("~")
+                # Save the canvas image in the user's home directory
+                file_path = os.path.join(home_dir, file_name_png)
+                
                 # Create an empty image with the same size as the canvas
                 canvas_image = Image.new("RGB", (canvas.winfo_width(), canvas.winfo_height()), color="white")
 
@@ -63,24 +69,19 @@ class Whiteboard:
                 x, y, width, height = canvas.winfo_rootx(), canvas.winfo_rooty(), canvas.winfo_width(), canvas.winfo_height()
                 canvas_image.paste(ImageGrab.grab(bbox=(x, y, x + width, y + height)))
 
-                # Capture pixel colors
-                pixel_grab_image = ImageGrab.grab(bbox=(x, y, x + width, y + height))
+                # For the desktop
+                desktop_path = os.path.join(os.path.expanduser('~'), 'Desktop')
+                file_path = os.path.join(desktop_path, file_name_png)
 
-                # Save the canvas image as a PNG file
-                canvas_image.save('/Desktop/'+file_name_png, format="PNG")
-                # for any computer, have it back up one folder into CS-50
-                # !!! have somewhere saved a base directory for the project:
-                    # current directory for Desktop
-                    # canvas_image.save('/Desktop/'+file_name_png, format="PNG")
+                # Save the canvas image as a PNG file on the desktop
+                canvas_image.save(file_path, format="PNG")
 
-                # Save pixel grab as a separate PNG file
-                pixel_grab_image.save(f"{file_name_png.replace('.png', '_pixel_grab.png')}", format="PNG")
 
                 # Show success message
-                messagebox.showinfo("Success", f"Whiteboard and pixel grab saved as {file_name_png}")
+                messagebox.showinfo("Success", f"Whiteboard saved as {file_path}")
         except Exception as e:
             # Show error message
-            messagebox.showerror("Error", f"Failed to save whiteboard and pixel grab: {e}")
+            messagebox.showerror("Error", f"Failed to save whiteboard: {e}")
 
     # use Antialiasing to blend adjacent pixels to make lines look smoother when the mouse is moved quickly
     # according to the tkinter documentation: 

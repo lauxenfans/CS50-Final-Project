@@ -6,7 +6,7 @@ from tkinter import filedialog, messagebox
 from tkinter import filedialog, Tk, Button, Canvas
 import random
 from PIL import ImageGrab, Image, ImageDraw
-import pygetwindow as gw
+#import pygetwindow as gw
 import tkcap
 import os
 
@@ -50,22 +50,22 @@ class Whiteboard:
                 canvas.create_oval(x1, y1, x2, y2, fill=color, outline=color, width=random.randint(1, 5))
 
 
-    def save_canvas_as_image():
-        screenshot_path = "/Users/savat1/Mirror/Mirror/GitHub/CS50-Final-Project/screenshot.jpg"
+    # def save_canvas_as_image():
+    #     screenshot_path = "/Users/savat1/Mirror/Mirror/GitHub/CS50-Final-Project/screenshot.jpg"
 
-        try:
-            cap = tkcap.CAP(root)
-            cap.capture(screenshot_path)
-            print("Screenshot saved at:", screenshot_path)
-        except Exception as e:
-            print("Error capturing screenshot:", e)
+    #     try:
+    #         cap = tkcap.CAP(root)
+    #         cap.capture(screenshot_path)
+    #         print("Screenshot saved at:", screenshot_path)
+    #     except Exception as e:
+    #         print("Error capturing screenshot:", e)
 
-        try:
-            # Optionally, add more details about the error, if any
-            with open(screenshot_path, 'wb') as f:
-                pass
-        except Exception as e:
-            print("Error saving file:", e)
+    #     try:
+    #         # Optionally, add more details about the error, if any
+    #         with open(screenshot_path, 'wb') as f:
+    #             pass
+    #     except Exception as e:
+    #         print("Error saving file:", e)
 
 
     

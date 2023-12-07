@@ -90,7 +90,7 @@ def lookup(symbol):
 
 
 ### Functions for whiteboard features 
-def paint(event, shade):
+def paint(event, shade, canvas):
     x1, y1 = (event.x - 2), (event.y - 2)
     x2, y2 = (event.x + 2), (event.y + 2)
     canvas.create_line(x1, y1, x2, y2, width=5, fill=shade, splinesteps = 256)

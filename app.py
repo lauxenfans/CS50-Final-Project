@@ -11,6 +11,9 @@ from helpers import apology, paint, color_picker, change, clear
 #sava imports
 from tkinter.colorchooser import askcolor
 from tkinter import ttk
+import time
+from tkinter import filedialog
+from tkinter import filedialog, Tk, Button, Canvas
 #from datetime import datetime
 #from pytz import timezone
 
@@ -64,7 +67,7 @@ def whiteboard():
     current_color = 'black'
     # define what happens when user clicks and drags the left mouse button <B1-Motion>
     # lambda is a keyword for a "throwaway" function that python uses to access a small "anonymous" function
-    canvas.bind("<B1-Motion>", lambda event: paint(event, shade))
+    canvas.bind("<B1-Motion>", lambda event: paint(event, shade, canvas))
 
     custom = tk.Button(root, text ="Custom Color", command = color_picker)
     custom.pack(side=tk.LEFT, fill=tk.BOTH, padx=5, pady=5)

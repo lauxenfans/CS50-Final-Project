@@ -35,7 +35,9 @@ Compilation
     Step 3: Type flask run in your terminal so you can load the website and have fun playing around with the whiteboard!
 
 
+    Step 4: To use the website, first click on the Register button on the top right to create an account. Enter a username and create a password and re-confirm that password.  
 
+    Step 5: Log into the website using your newly created username and password. 
 
 Make a whiteboard for drawing and then reverse image search on google 
 

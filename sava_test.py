@@ -7,7 +7,7 @@ from tkinter import filedialog, Tk, Button, Canvas
 import random
 from PIL import ImageGrab, Image, ImageDraw
 #import pygetwindow as gw
-import tkcap
+#import tkcap
 import os
 import io
 
@@ -16,7 +16,7 @@ brush_size = 5
 eraser_active = False
 shade = 'black'
 current_color = 'black'
-screenshot_path = "/Users/savat1/Mirror/Mirror/GitHub/CS50-Final-Project/screenshot.jpg"
+#screenshot_path = "/Users/savat1/Mirror/Mirror/GitHub/CS50-Final-Project/screenshot.jpg"
 
 class Whiteboard:
     # generate a random drawing
@@ -51,25 +51,26 @@ class Whiteboard:
             elif shape_type == "oval":
                 canvas.create_oval(x1, y1, x2, y2, fill=color, outline=color, width=random.randint(1, 5))
 
+    def save_canvas_as_image(root, canvas):
+        # Get the window coordinates and dimensions relative to the screen
+        x = root.winfo_rootx() + canvas.winfo_x()
+        y = root.winfo_rooty() + canvas.winfo_y()
+        x1 = x + canvas.winfo_width()
+        y1 = y + canvas.winfo_height()
 
-    def save_canvas_as_image():
+        # Take a screenshot of the canvas area using ImageGrab
+        screenshot = ImageGrab.grab(bbox=(x, y, x1, y1))
+
+        # Define the path for saving the screenshot (change as needed)
         desktop_path = os.path.join(os.path.expanduser('~'), 'Desktop')
-        screenshot_path = os.path.join(desktop_path, "screenshot.jpg")
+        screenshot_path = os.path.join(desktop_path, "canvas_screenshot.png")
 
         try:
-            x = root.winfo_rootx() + canvas.winfo_x()
-            y = root.winfo_rooty() + canvas.winfo_y()
-            x1 = x + canvas.winfo_width()
-            y1 = y + canvas.winfo_height()
-
-            # Take a screenshot of the canvas using ImageGrab
-            screenshot = ImageGrab.grab(bbox=(x, y, x1, y1))
-
-            # Save the screenshot to the desktop folder as a JPEG image
-            screenshot.save(screenshot_path, "JPEG")
-            print("Screenshot saved at:", screenshot_path)
+            # Save the screenshot to the desktop folder as a PNG image
+            screenshot.save(screenshot_path, "PNG")
+            print("Canvas screenshot saved at:", screenshot_path)
         except Exception as e:
-            print("Error capturing or saving screenshot:", e)
+            print("Error capturing or saving canvas screenshot:", e)
    
 
 

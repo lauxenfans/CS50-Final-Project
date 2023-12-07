@@ -67,6 +67,8 @@ class Whiteboard:
         self.brush_size = 5
         self.shade = 'black'
         self.current_color = 'black'
+        self.text_entry = tk.Entry()
+        self.font_size = 12
 
     # generate a random drawing
     def generate_random_drawing(self):
@@ -163,11 +165,13 @@ class Whiteboard:
     # create a text imput 
     def draw_text(self, event):
         input_text = self.text_entry.get()
+        self.text_entry=input_text
+        print(input_text)
 
         # if there is text to input
         if input_text:
             # style the font input
-            font_size_val = self.font_size.get()
+            font_size_val = self.font_size
             font_style = ("Helvetica", font_size_val, "bold")
             # input the text into the canvas based off the binding defined later
             self.canvas.create_text(event.x, event.y, text=input_text, fill="black", font=font_style)

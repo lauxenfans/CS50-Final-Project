@@ -1,16 +1,11 @@
-# Get file path 
+"""
+For Documentation: Will get the file directory of the image you made and return it. Uses os and sys library to get the name of the file you typed in terminal command argument 
+""" Get file path 
+
+# Import relevant libraries 
 import os
 import sys
 
-## Need to be able to customize JPG file url 
-
-# User upload the photo - Insert into HTML 
-# request.form.file — Get the file information and save using os.paht.join and display image by finding from the path 
-#SQL has binary blob type and can insert into a blob format 
-# Store as binary large ojbect and find most recent saved image 
-# os.path — Navigate exactly where you want to go 
-
- 
 if len(sys.argv) < 2:
     print("Please provide a file name as an argument.")
 else:

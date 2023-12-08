@@ -1,6 +1,3 @@
-# Get file path 
-import os
-import sys
 
 # Reverse Image Search 
 import requests 

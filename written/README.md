@@ -8,7 +8,7 @@ Link to Youtube Video: https://youtu.be/aMAx3Bsphqs
 
 Hello there! Thank you so much for taking a look at our project. In this writeup, you will find all of the necessary compilation information and usage to get started with using WriteRight. This document should be comprehensive, however, in the case that you run into errors, please contact us via: cbli@college.harvard.edu, sthurber@college.harvard.edu, lauxenfans@college.harvard.edu.
 
-*Note: Due to the limitations of CS50, we were unable to get all 3 portions of the website to link together. However, all 3 portions work individually. Below is the implementation for how the code works right now with some notes about debugging if you run into issues. We will denote these potential issues in a similar format to this*
+*Note: Due to the limitations of CS50, we were unable to get all 3 portions of the website to link together. However, all 3 portions work individually. Below is the implementation for how the code works right now with some notes about debugging if you run into issues. We have found that results may vary due to different operating systems. If you would like to see each of these programs more in depth and they are not running on your computer, please contact us, and we will be very willing to demonstrate how each portion works. We will denote these potential issues in a similar format to this*
 
 **Compilation**
     To work on our code, you will first have to get your computer up to date with the necessary installations. We decided to utilize the desktop Github and VSCode files. 
@@ -38,10 +38,10 @@ Hello there! Thank you so much for taking a look at our project. In this writeup
         - serpapi
 
     Step 3: Make sure that our folder "CS50-Final-Project" is open on your computer. You should see in your directory a series of folders and files as seen below:
-        - _pycache_
-        - flask_session
+        - _pycache_ (automatically generated)
+        - flask_session (automatically generated)
         - images
-        - other (this has our previous versions)
+        - other (this has our previous versions and testing files)
         - static
         - templates
         - written
@@ -80,7 +80,7 @@ Hello there! Thank you so much for taking a look at our project. In this writeup
 
         - Save: This will save your image as a png to your local directory to be later accessed (CS50-Final-Project in this case). 
 
-*Note: Unfortunately, we have run into issues with the webstie not running on all computers and the save function not saving the screenshot as an actual png. After talking to many TFs about this, they told us the solution was out of the scope of CS50 as it entails threading and additinal concepts*
+*Note: Unfortunately, we have run into issues with the website not running on all computers and the save function not saving the screenshot as an actual png. After talking to many TFs about this, they told us the solution was out of the scope of CS50 as it entails threading and additinal concepts*
 
 *Note: In the case that the website is not yielding your whiteboard canvas, run "python3 lfg.py" in your terminal to see all of the whiteboard functionalities in more detail*
 

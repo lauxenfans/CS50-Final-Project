@@ -1,3 +1,4 @@
+#helper functions
 import csv
 import datetime
 import pytz
@@ -5,18 +6,15 @@ import requests
 import subprocess
 import urllib
 import uuid
+import time
+import random
 
-#sava imports
 from flask import redirect, render_template, session
 from functools import wraps
 from tkinter.colorchooser import askcolor
 import tkinter as tk
-from tkinter import ttk
-
-import time
-from tkinter import filedialog, messagebox
+from tkinter import ttk, filedialog, messagebox
 from tkinter import filedialog, Tk, Button, Canvas
-import random
 from PIL import ImageGrab, Image, ImageDraw
 
 def apology(message, code=400):
@@ -180,8 +178,6 @@ class Whiteboard:
         # if it is not eraser mode, turn it into eraser mode
         # if it is eraser mode, turn it into not eraser mode 
         # these might be my favorite two lines of code here
-
-        # global eraser_active
         self.eraser_active = not self.eraser_active
 
         # Display message so user knows when it is or isn't eraser mode
@@ -191,7 +187,6 @@ class Whiteboard:
     # color picker menu based off hardware and software of user
     # thank you tkinter documentation 
     def color_picker(self):
-        # global shade, current_color
         color = askcolor()
         # color will give both the hex and rgb of the chosen color, so I need to undex to 
         # color[1] for my draw function to use it
@@ -202,7 +197,6 @@ class Whiteboard:
             self.current_color = shade
 
     def change(self, shade):
-        # global current
         self.current = shade
 
     # clear function erases everything from canvas (thank you tkinter documentation)
@@ -211,5 +205,4 @@ class Whiteboard:
 
     # changes brush size based off value from slider
     def update_brush_size(self, value):
-        #global brush_size
         self.brush_size = int(value)

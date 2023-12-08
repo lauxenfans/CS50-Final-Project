@@ -1,9 +1,3 @@
-""" 
-For Documentation: 
-Input the file directory or URL of an image and get a return of the search results for reverse Google Image Search 
-For the purposes of this demonstration, I just added the URL of the apple.png file to demonstrate how SerpAPI will generate the search results of an image 
-"""
-
 # Reverse Image Search 
 import requests 
 from PIL import Image 

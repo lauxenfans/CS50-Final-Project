@@ -1,69 +1,91 @@
-import cv2
-import requests
-import numpy as np
-import json
+from flask import Flask, request, jsonify, render_template
+from google_images_search import GoogleImagesSearch
+import base64
 
-# Function to perform reverse image search using Google Custom Search API
-def reverse_image_search(image_path, api_key, custom_search_engine_id):
-    # Read the image using OpenCV 
-    """
-    f = open('apple.png', "rb")
-    rawImage = f.read()
-    f.close()
+app = Flask(__name__)
 
-    # Convert rawImage to Mat 
-    pilImage = Image.open(StringIO(rawImage));
-    npImage = np.array(pilImage)
-    matImage = cv.fromarray(npImage)
-    """
+# Initialize GoogleImagesSearch with your API credentials
+gis = GoogleImagesSearch('AIzaSyC3d59M5694VMl8kLscZpyDVhaYFD569Z8', '8097be5676b3248b1')
 
-    with open('apple.png', 'rb') as infile:
-        buf = infile.read()
-    #x = np.fromstring(buf, dtype = 'uint8')
+def validate_params(cx, api_key, search_type, num, start, safe):
+    # Check if all required parameters are provided
+    if cx is None or api_key is None or search_type is None or num is None or start is None or safe is None:
+        return False
 
-    # Decode array into image 
-    #img = cv2.imdecode(x, cs2.IMREAD_UNCHANGED)
+    # Check parameter types and values
+    if not isinstance(cx, str) or not isinstance(api_key, str) \
+            or not isinstance(search_type, str) or not isinstance(num, int) \
+            or not isinstance(start, int) or not isinstance(safe, str):
+        return False
+
+    # Check specific parameter values (customize as needed)
+    if search_type != 'image' or safe not in ['high', 'medium', 'off']:
+        return False
+
+    return True
+
+
+# HTML form for file upload
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Handle file upload and perform reverse image search
+@app.route('/upload', methods=['POST'])
+def upload():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'})
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'})
+
+    # Read the image file and encode it to base64
+    image_content = file.read()
+    image_base64 = base64.b64encode(image_content).decode('utf-8')
+
+    # Check parameters
+    # Get the content of the file and encode it to base64
+    image_content = file.read()
+    image_base64 = base64.b64encode(image_content).decode('utf-8')
+
+    # Check parameters
+    cx = 'AIzaSyC3d59M5694VMl8kLscZpyDVhaYFD569Z8'
+    api_key = '8097be5676b3248b1'
+    search_type = 'image'
+    num = 1  # Number of results
+    start = 1  # Starting index for results
+    safe = 'off'  # Safe search option
     
+    if validate_params(cx, api_key, search_type, num, start, safe):
+        # Perform Google reverse image search with correct parameters
+        gis.search({
+            'cx': cx,
+            'q': image_base64,
+            'num': num,
+            'start': start,
+            'searchType': search_type,
+            'safe': safe,
+            'key': api_key
+        })
+
+        results = gis.results()
+        search_url = results[0].url if results else None
+        return jsonify({'searchUrl': search_url})
+    else:
+        return jsonify({'error': 'Invalid parameters. Check your values and formats.'})
+
+        """ 
+        # Perform Google reverse image search
+        gis.search({'imgUrl': file.read()})
+        results = gis.results()
+        search_url = results[0].url if results else None
+
+        return jsonify({'searchUrl': search_url})
+    """
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
     
-    # Convert the image to base64 encoding
-    # _, img_encoded = cv2.imencode('.png', img)
-    # img_base64 = img_encoded.tobytes()
-
-     
-    # Make a POST request to the Google Custom Search API
-    url = f'https://www.googleapis.com/customsearch/v1?key={api_key}&cx={custom_search_engine_id}&searchType=image'
-    headers = {'Content-Type': 'application/json'}
-    data = {
-        "requests": [
-            {
-                "image": {
-                    "content": buf
-                }
-            }
-        ]
-    }
-
-    response = requests.get(url, headers=headers, json=json.dumps(data))
-    results = response.json()
-
-    return results
-
-# Path to the image you want to perform reverse image search on
-image_path = 'apple.png'
-
-# Your Google Custom Search API key and Custom Search Engine ID
-api_key = 'AIzaSyC3d59M5694VMl8kLscZpyDVhaYFD569Z8'
-custom_search_engine_id = '8097be5676b3248b1'
-
-# Perform reverse image search
-search_results = reverse_image_search(image_path, api_key, custom_search_engine_id)
-
-# Process the search results
-if 'items' in search_results:
-    for item in search_results['items']:
-        print("Title:", item.get('title', ''))
-        print("Link:", item.get('link', ''))
-        print("Image:", item.get('image', {}).get('contextLink', ''))
-        print("-----------------------------------")
-else:
-    print("No search results found.")

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reverse Image Search</title>
+</head>
+<body>
+  <h1>Google Reverse Image Search</h1>
+  
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="fileInput" name="file">
+    <input type="button" value="Upload" onclick="uploadImage()">
+  </form>
+
+  <script>
+    function uploadImage() {
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert("Please select a file.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      fetch('YOUR_SERVER_ENDPOINT', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Assuming the API returns the Google reverse image search URL in 'searchUrl' field
+        const searchUrl = data.searchUrl;
+        if (searchUrl) {
+          // Open the search URL in a new tab
+          window.open(searchUrl, '_blank');
+        } else {
+          alert('Failed to get search results.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error uploading file.');
+      });
+    }
+  </script>
+</body>
+</html>

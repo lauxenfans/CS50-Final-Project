@@ -1,5 +1,8 @@
+# Get file path 
+import os
+import sys
 
-
+# Reverse Image Search 
 import requests 
 from PIL import Image 
 from io import BytesIO
@@ -13,7 +16,10 @@ from serpapi import GoogleSearch
 # Store as binary large ojbect and find most recent saved image 
 # os.path — Navigate exactly where you want to go 
 
+ 
 
+
+#Replace with directory to file of interest to work generally 
 uploaded_image_url = "https://purepng.com/public/uploads/large/purepng.com-applefoodsweettastyhealthyfruitapple-9815246780899e3jo.png"
 
 params = {
@@ -24,9 +30,7 @@ params = {
 
 search = GoogleSearch(params)
 results = search.get_dict()
-#print(results)
 inline_images = results["inline_images"]
-print(inline_images[0])
 
 ###   Display JPG file  ###
 # Will grab url from thumbnail
@@ -38,7 +42,4 @@ for image_info in inline_images:
     
     #Display the image 
         img.show()
-
-
-
 
